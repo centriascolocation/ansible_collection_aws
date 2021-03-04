@@ -1,0 +1,22 @@
+---
+- name: Install package requirements
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ package_requirements }}"
+
+- name: Install ruby2.6
+  command:
+    cmd: amazon-linux-extras install -y ruby2.6
+    creates: /usr/bin/ruby
+
+- name: Download CodeDeploy
+  get_url:
+    url: "{{ codedeploy_install_script_url }}"
+    dest: "{{ codedeploy_install_script_dest }}"
+    mode: '0750'
+
+- name: Install CodeDeploy
+  command: "{{ codedeploy_install_script_dest }} auto"
+  args:
+    creates: /opt/codedeploy-agent/bin/codedeploy-agent

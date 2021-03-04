@@ -1,0 +1,12 @@
+---
+# handlers file for aws-cloudwatch-agent
+
+- name: restart amazon-cloudwatch-agent.service
+  ansible.builtin.service:
+    name: amazon-cloudwatch-agent
+    state: restarted
+
+- name: enable amazon-cloudwatch-agent.service
+  ansible.builtin.service:
+    name: amazon-cloudwatch-agent
+    enabled: yes

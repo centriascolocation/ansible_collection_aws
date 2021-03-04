@@ -1,0 +1,5 @@
+- name: Install cloudwatch agent
+  apt:
+    deb: "{{ item.ubuntu_agent_url }}"
+  with_items: "{{ cloudwatch }}"
+  notify: enable amazon-cloudwatch-agent.service

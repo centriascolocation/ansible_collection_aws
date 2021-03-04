@@ -1,0 +1,24 @@
+---
+- name: Include OS specific variables.
+  include_vars: "{{ item }}"
+  with_first_found:
+    - "{{ ansible_os_family }}.yml"
+    - "main.yml"
+
+- name: Include tasks for Amazon Linux.
+  include_tasks: "install-AmazonLinux.yml"
+  when:
+    - ansible_distribution == "Amazon"
+    - ansible_distribution_major_version == "2"
+
+- name: Include tasks for Debian/Ubuntu.
+  include_tasks: "install-Debian.yml"
+  when:
+    - ansible_os_family == "Debian"
+
+## service will auto-detect systemd:
+- name: CodeDeploy service
+  service:
+    name: codedeploy-agent
+    state: started
+    enabled: yes

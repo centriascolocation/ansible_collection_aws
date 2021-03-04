@@ -1,0 +1,8 @@
+- name: Copying agent configuration
+  template:
+    src: templates/config.json.j2
+    dest: /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json
+    mode: 0644
+    owner: root
+    group: root
+  notify: restart amazon-cloudwatch-agent.service

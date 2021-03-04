@@ -1,0 +1,5 @@
+---
+- name: Install cloudwatch agent
+  package:
+    name: amazon-cloudwatch-agent
+    state: present

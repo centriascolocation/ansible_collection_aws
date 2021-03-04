@@ -1,0 +1,31 @@
+# OS-specific
+.DS_Store
+
+# Editor swapfiles
+.*.sw?
+*~
+
+# Python bitcode
+*.pyc
+
+# Ansible
+*.retry
+.galaxy_install_info
+
+# Ruby / rbenv / kitchen-ci / InSpec:
+.ruby-version
+.rbenv-gemsets
+.kitchen
+Gemfile.lock
+inspec.lock
+
+# inventories
+inventories/private/**
+!inventories/private/.gitkeep
+
+
+# cover vendor roles, installed from Ansible Galaxy:
+roles/vendor/**
+!roles/vendor/.gitkeep
+.idea/
+.cache/

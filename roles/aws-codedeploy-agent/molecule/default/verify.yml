@@ -1,0 +1,19 @@
+---
+
+- name: Verify
+  hosts: all
+  gather_facts: false
+
+  tasks:
+    - name: Check codedeploy-agent is installed
+      stat:
+        path: /opt/codedeploy-agent/bin/codedeploy-agent
+      register: codedeployagent
+
+    - name: codedeploy-agent is installed
+      assert:
+        that:
+          - codedeployagent.stat.exists
+          - codedeployagent.stat.executable
+        fail_msg: "codedeploy-agent is NOT installed"
+        success_msg: "codedeploy-agent is installed and executable"

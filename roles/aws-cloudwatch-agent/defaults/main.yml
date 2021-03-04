@@ -1,0 +1,4 @@
+---
+# defaults file for aws-cloudwatch-agent
+cloudwatch:
+  - ubuntu_agent_url: "https://s3.amazonaws.com/amazoncloudwatch-agent/ubuntu/amd64/latest/amazon-cloudwatch-agent.deb"

@@ -1,0 +1,17 @@
+---
+- name: Install package requirements
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ package_requirements }}"
+
+- name: Download CodeDeploy
+  get_url:
+    url: "{{ codedeploy_install_script_url }}"
+    dest: "{{ codedeploy_install_script_dest }}"
+    mode: '0750'
+
+- name: Install CodeDeploy
+  command: "{{ codedeploy_install_script_dest }} auto > /tmp/logfile"
+  args:
+    creates: /opt/codedeploy-agent/bin/codedeploy-agent

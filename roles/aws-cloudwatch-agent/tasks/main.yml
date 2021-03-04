@@ -1,0 +1,17 @@
+---
+# tasks file for aws-cloudwatch-agent
+
+- name: Package for Debian/Ubuntu
+  include_tasks: install-Debian.yml
+  register: install
+  when:
+    - ansible_os_family == "Debian"
+
+- name: Package for Amazon Linux
+  include_tasks: "install-AmazonLinux.yml"
+  when:
+    - ansible_distribution == "Amazon"
+    - ansible_distribution_major_version == "2"
+
+- include_tasks: agent-config.yml
+  when: install is success

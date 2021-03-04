@@ -1,0 +1,4 @@
+package_requirements:
+  - debianutils
+  - ruby
+  - wget
