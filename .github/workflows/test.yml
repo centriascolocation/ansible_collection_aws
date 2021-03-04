@@ -21,3 +21,13 @@ jobs:
       - run: |
           cd roles/aws-cloudwatch-agent
           pipenv run molecule test
+        env:
+          PY_COLORS: '1'
+          ANSIBLE_FORCE_COLOR: '1'
+
+      - run: |
+          cd roles/aws-codedeploy-agent
+          pipenv run molecule test
+        env:
+          PY_COLORS: '1'
+          ANSIBLE_FORCE_COLOR: '1'
