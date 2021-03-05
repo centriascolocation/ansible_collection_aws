@@ -25,7 +25,6 @@ jobs:
           pipenv run yamllint .
           pipenv run ansible-lint -v
 
-
   test:
     runs-on: ubuntu-latest
     strategy:
@@ -47,16 +46,18 @@ jobs:
           pip install pipenv
           pipenv install --deploy --dev
 
-      - run: |
-          cd roles/aws-cloudwatch-agent
+      - name: molecule tests for role aws-cloudwatch-agent
+        working-directory: roles/aws-cloudwatch-agent
+        run: |
           pipenv run molecule test
         env:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
           MOLECULE_DISTRO: ${{ matrix.distro }}
 
-      - run: |
-          cd roles/aws-codedeploy-agent
+      - name: molecule tests for role aws-codedeploy-agent
+        working-directory: roles/aws-codedeploy-agent
+        run: |
           pipenv run molecule test
         env:
           PY_COLORS: '1'
