@@ -3,3 +3,4 @@
   package:
     name: amazon-cloudwatch-agent
     state: present
+  notify: enable amazon-cloudwatch-agent.service
