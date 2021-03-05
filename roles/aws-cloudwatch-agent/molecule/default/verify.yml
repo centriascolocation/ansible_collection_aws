@@ -1,10 +1,19 @@
 ---
-# This is an example playbook to execute Ansible tests.
 
 - name: Verify
   hosts: all
   gather_facts: false
+
   tasks:
-  - name: Example assertion
-    assert:
-      that: true
+    - name: Check cloudwatch-agent is installed
+      stat:
+        path: /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent
+      register: cloudwatchagent
+
+    - name: cloudwatch-agent is installed
+      assert:
+        that:
+          - cloudwatchagent.stat.exists
+          - cloudwatchagent.stat.executable
+        fail_msg: "cloudwatch-agent is NOT installed"
+        success_msg: "cloudwatch-agent is installed and executable"
