@@ -1,3 +1,4 @@
+---
 - name: Copying agent configuration
   template:
     src: templates/config.json.j2

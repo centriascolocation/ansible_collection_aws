@@ -1,3 +1,4 @@
+---
 - name: Install cloudwatch agent
   apt:
     deb: "{{ item.ubuntu_agent_url }}"
