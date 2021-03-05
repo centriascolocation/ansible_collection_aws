@@ -1,8 +1,31 @@
-name: Test
+---
+name: CI
 
-on: [push, pull_request]
+on: [ push, pull_request ]
 
 jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+
+      - name: Install dependencies with pipenv
+        run: |
+          pip install pipenv
+          pipenv install --deploy --dev
+
+      - name: Lint yaml files and ansible roles/playbooks
+        run: |
+          pipenv run yamllint .
+          pipenv run ansible-lint -v
+
+
   test:
     runs-on: ubuntu-latest
     strategy:
