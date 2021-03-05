@@ -1,23 +1,11 @@
 ---
 dependency:
   name: galaxy
-lint: |
-  set -e
-  yamllint .
-  ansible-lint
 driver:
   name: docker
 platforms:
-  - name: al2
-    image: "geerlingguy/docker-amazonlinux2-ansible:latest"
-    command: ${MOLECULE_DOCKER_COMMAND:-""}
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    privileged: true
-    pre_build_image: true
-
-  - name: ubuntu2004
-    image: "geerlingguy/docker-ubuntu2004-ansible:latest"
+  - name: instance
+    image: "geerlingguy/docker-${MOLECULE_DISTRO:-amazonlinux2}-ansible:latest"
     command: ${MOLECULE_DOCKER_COMMAND:-""}
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
@@ -27,40 +15,3 @@ provisioner:
   name: ansible
   playbooks:
     converge: ${MOLECULE_PLAYBOOK:-converge.yml}
-scenario:
-  create_sequence:
-    #- dependency
-    - create
-    #- prepare
-  check_sequence:
-    #- dependency
-    #- cleanup
-    - destroy
-    - create
-    #- prepare
-    - converge
-    - check
-    - destroy
-  converge_sequence:
-    #- dependency
-    - create
-    #- prepare
-    - converge
-  destroy_sequence:
-    #- dependency
-    #- cleanup
-    - destroy
-  test_sequence:
-    #- dependency
-    - lint
-    #- cleanup
-    - destroy
-    - syntax
-    - create
-    #- prepare
-    - converge
-    - idempotence
-    #- side_effect
-    - verify
-    #- cleanup
-    - destroy
