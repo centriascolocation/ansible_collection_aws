@@ -32,6 +32,7 @@ jobs:
         distro:
           - ubuntu2004
           - amazonlinux2
+          - debian10
 
     steps:
       - uses: actions/checkout@v2
@@ -57,6 +58,15 @@ jobs:
 
       - name: molecule tests for role aws-codedeploy-agent
         working-directory: roles/aws-codedeploy-agent
+        run: |
+          pipenv run molecule test
+        env:
+          PY_COLORS: '1'
+          ANSIBLE_FORCE_COLOR: '1'
+          MOLECULE_DISTRO: ${{ matrix.distro }}
+
+      - name: molecule tests for role awscliv2
+        working-directory: roles/awscliv2
         run: |
           pipenv run molecule test
         env:

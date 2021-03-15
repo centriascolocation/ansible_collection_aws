@@ -1,0 +1,29 @@
+---
+- name: Install required packages
+  ansible.builtin.package:
+    name:
+      - curl
+      - zip
+      - unzip
+      - sudo
+    state: present
+  register: req_packages_installed
+
+- name: Download awscli version 2 (latest)
+  get_url:
+    url: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
+    dest: /tmp/awscliv2.zip
+    mode: '0440'
+  when: req_packages_installed is succeeded
+
+- name: Extract zipfile
+  ansible.builtin.unarchive:
+    src: /tmp/awscliv2.zip
+    dest: /tmp
+    remote_src: true
+
+- name: Install awscli version 2
+  become: true
+  command: "/tmp/aws/install -i /usr/local/aws-cli -b /usr/local/bin"
+  args:
+    creates: /usr/local/bin/aws
