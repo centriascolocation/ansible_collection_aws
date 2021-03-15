@@ -2,10 +2,10 @@
 - name: Install required packages
   ansible.builtin.package:
     name:
-    - curl
-    - zip
-    - unzip
-    - sudo
+      - curl
+      - zip
+      - unzip
+      - sudo
     state: present
   register: req_packages_installed
 
