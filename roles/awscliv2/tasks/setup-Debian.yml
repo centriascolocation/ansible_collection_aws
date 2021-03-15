@@ -2,10 +2,10 @@
 - name: Install required packages
   apt:
     pkg:
-    - curl
-    - zip
-    - unzip
-    - sudo
+      - curl
+      - zip
+      - unzip
+      - sudo
   register: req_packages_installed
 
 - name: Download awscli version 2 (latest)

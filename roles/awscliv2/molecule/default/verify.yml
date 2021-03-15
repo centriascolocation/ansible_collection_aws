@@ -29,4 +29,3 @@
           - awscliversion.stdout is regex("^aws\-cli\/2\.\d+")
         fail_msg: "version seems incorrect"
         success_msg: "version is 2"
-
