@@ -32,6 +32,7 @@ jobs:
         distro:
           - ubuntu2004
           - amazonlinux2
+          - debian10
 
     steps:
       - uses: actions/checkout@v2

@@ -1,0 +1,32 @@
+---
+
+- name: Verify
+  hosts: all
+  gather_facts: false
+
+  tasks:
+    - name: Check aws in PATH
+      stat:
+        path: /usr/local/bin/aws
+      register: awscli
+
+    - name: Check version
+      ansible.builtin.shell: AWS_PAGER="" aws --version
+      register: awscliversion
+      changed_when: false
+
+    - name: awscli is installed
+      assert:
+        that:
+          - awscli.stat.exists
+          - awscli.stat.executable
+        fail_msg: "aws is NOT installed"
+        success_msg: "aws is installed and executable"
+
+    - name: verify version 2
+      assert:
+        that:
+          - awscliversion.stdout is regex("^aws\-cli\/2\.\d+")
+        fail_msg: "version seems incorrect"
+        success_msg: "version is 2"
+
