@@ -29,3 +29,15 @@
           - awscliversion.stdout is regex("^aws\-cli\/2\.\d+")
         fail_msg: "version seems incorrect"
         success_msg: "version is 2"
+
+    - name: Check awscli (v1) pip installation
+      ansible.builtin.shell: pip freeze
+      register: pipfreeze
+      changed_when: false
+
+    - name: verify version 1 is no more installed
+      assert:
+        that:
+          - pipfreeze.stdout is not regex("awscli")
+        fail_msg: "please make sure to remove awscli via pip"
+        success_msg: "no awscli pip package found"
